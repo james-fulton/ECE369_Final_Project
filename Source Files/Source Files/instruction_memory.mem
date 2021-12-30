@@ -1,0 +1,79 @@
+201d1068	//	main:		addi	$sp, $zero, 4200 ->	main:		addi	$sp, $zero, 4200
+23bdfffc	//			addi	$sp, $sp, -4 ->			addi	$sp, $sp, -4
+afbf0000	//			sw	$ra, 0($sp) ->			sw	$ra, 0($sp)
+34040000	//			ori	$a0, $zero, 0 ->			ori	$a0, $zero, 0
+34050010	//			ori	$a1, $zero, 16 ->			ori	$a1, $zero, 16
+34064010	//			ori	$a2, $zero, 16400 ->			ori	$a2, $zero, 16400
+0c00000e	//			jal	vbsme ->			jal	vbsme
+00000000	//			nop ->			nop
+8fbf0000	//			lw	$ra, 0($sp) ->			lw	$ra, 0($sp)
+23bd0004	//			addi	$sp, $sp, 4 ->			addi	$sp, $sp, 4
+34020000	//			ori	$v0, $zero, 0 ->			ori	$v0, $zero, 0
+34030000	//			ori	$v1, $zero, 0 ->			ori	$v1, $zero, 0
+0800004d	//			j	Exit ->			j	Exit
+00000000	//			nop ->			nop
+23bdfffc	//	vbsme:		addi	$sp, $sp, -4 ->	vbsme:		addi	$sp, $sp, -4
+afbf0000	//			sw	$ra, 0($sp) ->			sw	$ra, 0($sp)
+201503e7	//	setup:		addi	$s5, $zero, 999 ->	setup:		addi	$s5, $zero, 999
+34160000	//			ori	$s6, $zero, 0 ->			ori	$s6, $zero, 0
+34020000	//			ori	$v0, $zero, 0 ->			ori	$v0, $zero, 0
+34030000	//			ori	$v1, $zero, 0 ->			ori	$v1, $zero, 0
+8c910004	//			lw	$s1, 4($a0) ->			lw	$s1, 4($a0)
+8c920008	//			lw	$s2, 8($a0) ->			lw	$s2, 8($a0)
+8c93000c	//			lw	$s3, 12($a0) ->			lw	$s3, 12($a0)
+8c8c0000	//	mainLoop:	lw	$t4, 0($a0) ->	mainLoop:	lw	$t4, 0($a0)
+01924022	//			sub	$t0, $t4, $s2 ->			sub	$t0, $t4, $s2
+21080001	//			addi	$t0, $t0, 1 ->			addi	$t0, $t0, 1
+72284802	//			mul	$t1, $s1, $t0 ->			mul	$t1, $s1, $t0
+01335022	//			sub	$t2, $t1, $s3 ->			sub	$t2, $t1, $s3
+214a0001	//			addi	$t2, $t2, 1 ->			addi	$t2, $t2, 1
+02ca502a	//			slt	$t2, $s6, $t2 ->			slt	$t2, $s6, $t2
+1140002a	//			beq	$t2, $zero, exitLoop ->			beq	$t2, $zero, exitLoop
+72D14003	//			div $t0 $s6 $s1
+21090001	//			addi	$t1, $t0, 1 ->			addi	$t1, $t0, 1
+71315002	//			mul	$t2, $t1, $s1 ->			mul	$t2, $t1, $s1
+01535822	//			sub	$t3, $t2, $s3 ->			sub	$t3, $t2, $s3
+216c0001	//			addi	$t4, $t3, 1 ->			addi	$t4, $t3, 1
+02cc682a	//			slt	$t5, $s6, $t4 ->			slt	$t5, $s6, $t4
+22d60001	//			addi	$s6, $s6, 1 ->			addi	$s6, $s6, 1
+11a0fff0	//			beq	$t5, $zero, mainLoop ->			beq	$t5, $zero, mainLoop
+00000000	//			nop ->			nop
+22d7ffff	//	findSAD:	addi	$s7, $s6, -1 ->	findSAD:	addi	$s7, $s6, -1
+00c07020	//			add	$t6, $a2, $zero ->			add	$t6, $a2, $zero
+340d0000	//			ori	$t5, $zero, 0 ->			ori	$t5, $zero, 0
+0017c080	//			sll	$t8, $s7, 2 ->			sll	$t8, $s7, 2
+0305c820	//			add	$t9, $t8, $a1 ->			add	$t9, $t8, $a1
+340f0000	//	getFrame:	ori	$t7, $zero, 0 ->	getFrame:	ori	$t7, $zero, 0
+722d4002	//	iLoop:		mul	$t0, $s1, $t5 ->	iLoop:		mul	$t0, $s1, $t5
+8dc90000	//			lw	$t1, 0($t6) ->			lw	$t1, 0($t6)
+00084080	//			sll	$t0, $t0, 2 ->			sll	$t0, $t0, 2
+03285020	//			add	$t2, $t9, $t0 ->			add	$t2, $t9, $t0
+014f5020	//			add	$t2, $t2, $t7 ->			add	$t2, $t2, $t7
+8d480000	//	sadCalc:	lw	$t0, 0($t2) ->	sadCalc:	lw	$t0, 0($t2)
+21ce0004	//			addi	$t6, $t6, 4 ->			addi	$t6, $t6, 4
+21ef0004	//			addi	$t7, $t7, 4 ->			addi	$t7, $t7, 4
+05280000	//			abs 0, $t1, $t0
+00134880	//			sll	$t1, $s3, 2 ->			sll	$t1, $s3, 2
+01e9402a	//			slt	$t0, $t7, $t1 ->			slt	$t0, $t7, $t1
+1500fff4	//			bne	$t0, $zero, iLoop ->			bne	$t0, $zero, iLoop
+00000000	//			nop ->			nop
+21ad0001	//			addi	$t5, $t5, 1 ->			addi	$t5, $t5, 1
+01b2482a	//			slt	$t1, $t5, $s2 ->			slt	$t1, $t5, $s2
+1520ffef	//			bne	$t1, $zero, getFrame ->			bne	$t1, $zero, getFrame
+00000000	//			nop ->			nop
+0400C801	//			sum $t9
+02b9502a	//			slt	$t2, $s5, $t9 ->			slt	$t2, $s5, $t9
+1540ffd5	//			bne	$t2, $zero, mainLoop ->			bne	$t2, $zero, mainLoop
+00000000	//			nop ->			nop
+0320a820	//			add	$s5, $t9, $zero ->			add	$s5, $t9, $zero
+72F11003	//			div $v0 $s7 $s1
+70516802	//			mul	$t5, $v0, $s1 ->			mul	$t5, $v0, $s1
+02ed1822	//			sub	$v1, $s7, $t5 ->			sub	$v1, $s7, $t5
+08000017	//			j	mainLoop ->			j	mainLoop
+00000000	//			nop ->			nop
+8fbf0000	//	exitLoop:	lw	$ra, 0($sp) ->	exitLoop:	lw	$ra, 0($sp)
+23bd0004	//			addi	$sp, $sp, 4 ->			addi	$sp, $sp, 4
+03e00008	//			jr	$ra ->			jr	$ra
+00000000	//			nop ->			nop
+0800004d	//	Exit:		j	Exit ->	Exit:		j	Exit
+00000000	//			nop ->			nop
