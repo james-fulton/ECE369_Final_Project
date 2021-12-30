@@ -1,0 +1,16 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Engineers: James Fulton, Raphael Lepercq, & Wilson Liao 
+// Create Date: 10/17/2021 08:53:03 AM
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module And(A, B, out);
+    input A, B;
+    output reg out;
+    
+    always @(*) begin
+        out = A && B;
+    end
+    
+endmodule
