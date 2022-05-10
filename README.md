@@ -1,5 +1,4 @@
 # ECE369_Final_Project
-
 Final project for ECE369 of Fall 2021
 Developers: James Fulton, Raphael Lepercq, & Wilson Liao
 
